@@ -205,6 +205,38 @@ public final class StringReps {
         }
     }
 
+    /**
+     * Converts Tai-e's type descriptor to bytecode type descriptor.
+     * For example:
+     * <ul>
+     *     <li>{@code int[]} to {@code [I}.</li>
+     *     <li>{@code int[][]} to {@code [[I}.</li>
+     *     <li>{@code java.lang.Object} to {@code Ljava/lang/Object;}.</li>
+     *     <li>{@code java.lang.Object[]} to {@code [Ljava/lang/Object;}.</li>
+     * </ul>
+     */
+    public static String toBytecodeTypeDesc(String taieDesc) {
+        int dimensions = 0;
+        while (taieDesc.endsWith("[]")) {
+            dimensions++;
+            taieDesc = taieDesc.substring(0, taieDesc.length() - 2);
+        }
+
+        String baseType = switch (taieDesc) {
+            case "boolean" -> "Z";
+            case "byte" -> "B";
+            case "char" -> "C";
+            case "short" -> "S";
+            case "int" -> "I";
+            case "float" -> "F";
+            case "long" -> "J";
+            case "double" -> "D";
+            default -> "L" + taieDesc.replace('.', '/') + ";";
+        };
+
+        return baseType + "[]".repeat(dimensions);
+    }
+
 
     /**
      * @return {@code true} if the given string is a valid Java identifier.

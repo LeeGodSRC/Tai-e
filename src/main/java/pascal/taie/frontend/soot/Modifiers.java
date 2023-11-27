@@ -31,12 +31,41 @@ import java.util.concurrent.ConcurrentMap;
 
 import static pascal.taie.util.collection.Maps.newConcurrentMap;
 
-class Modifiers {
+public class Modifiers {
 
     private static final ConcurrentMap<Integer, Set<Modifier>> modMap
             = newConcurrentMap();
 
     private Modifiers() {
+    }
+
+    public static int convert(Set<Modifier> modifiers) {
+        int result = 0;
+        for (Modifier modifier : modifiers) {
+            result |= convert(modifier);
+        }
+        return result;
+    }
+
+    public static int convert(Modifier modifier) {
+        return switch (modifier) {
+            case ABSTRACT -> soot.Modifier.ABSTRACT;
+            case FINAL -> soot.Modifier.FINAL;
+            case INTERFACE -> soot.Modifier.INTERFACE;
+            case NATIVE -> soot.Modifier.NATIVE;
+            case PRIVATE -> soot.Modifier.PRIVATE;
+            case PROTECTED -> soot.Modifier.PROTECTED;
+            case PUBLIC -> soot.Modifier.PUBLIC;
+            case STATIC -> soot.Modifier.STATIC;
+            case SYNCHRONIZED -> soot.Modifier.SYNCHRONIZED;
+            case TRANSIENT -> soot.Modifier.TRANSIENT;
+            case VOLATILE -> soot.Modifier.VOLATILE;
+            case STRICTFP -> soot.Modifier.STRICTFP;
+            case ANNOTATION -> soot.Modifier.ANNOTATION;
+            case ENUM -> soot.Modifier.ENUM;
+            case SYNTHETIC -> soot.Modifier.SYNTHETIC;
+            default -> throw new IllegalArgumentException("Unknown modifier: " + modifier);
+        };
     }
 
     static Set<Modifier> convert(int modifiers) {

@@ -195,6 +195,11 @@ public class JMethod extends ClassMember {
         return ir;
     }
 
+    @Nullable
+    public IR getIRIfPresent() {
+        return ir;
+    }
+
     /**
      * @return the {@link MethodRef} pointing to this method.
      */
