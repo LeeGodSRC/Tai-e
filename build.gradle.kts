@@ -9,6 +9,9 @@ description = projectArtifactId
 version = projectVersion
 
 dependencies {
+    // Lombok
+    compileOnly("org.projectlombok:lombok:1.18.22")
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
     // Process options
     implementation("info.picocli:picocli:4.7.3")
     // Logger

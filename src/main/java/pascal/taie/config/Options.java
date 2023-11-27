@@ -35,6 +35,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
+import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import pascal.taie.WorldBuilder;
@@ -64,6 +65,7 @@ import java.util.stream.Collectors;
         description = "Tai-e options",
         usageHelpWidth = 120
 )
+@Setter
 public class Options implements Serializable {
 
     private static final Logger logger = LogManager.getLogger(Options.class);
